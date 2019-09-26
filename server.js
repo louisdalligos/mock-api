@@ -2,12 +2,19 @@
 const express = require("express");
 const connectToMongoDB = require("./config/connect");
 const app = express();
+const cors = require("cors");
 
 // CONNECT TO DB
 connectToMongoDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true
+  })
+);
 
 // DEFINE ROUTES
 app.use("/api/auth", require("./routes/auth.route"));
